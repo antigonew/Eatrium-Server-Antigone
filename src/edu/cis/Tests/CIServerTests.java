@@ -7,6 +7,7 @@
 package edu.cis.Tests;
 
 import acm.program.*;
+import edu.cis.Controller.CISUser;
 import edu.cis.Model.CISConstants;
 import edu.cis.Model.Request;
 import edu.cis.Utils.SimpleClient;
@@ -20,7 +21,7 @@ public class CIServerTests extends ConsoleProgram
     public static void main(String[] args)
     {
         CIServerTests f = new CIServerTests();
-        f.start(args);
+        f.start(args) ;
     }
 
     /* The internet address of the computer running the server */
@@ -340,6 +341,16 @@ public class CIServerTests extends ConsoleProgram
         }
 
         println("Passed: " + passed + "/" + total);
+
+        try {
+            println("Running get cart test");
+            Request getCart = new Request(CISConstants.GET_CART);
+            getCart.addParam(CISConstants.USER_ID_PARAM, "abcd");
+            String returnGetCart = SimpleClient.makeRequest(HOST, getCart);
+            println(returnGetCart);
+        } catch (IOException e) {
+            println(e);
+        }
     }
 
     /**
